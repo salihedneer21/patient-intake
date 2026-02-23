@@ -12,8 +12,8 @@ export const authClient = createClient(components.betterAuth);
 // Frontend URL - defaults to localhost for dev
 const siteUrl = process.env.SITE_URL ?? "http://localhost:5173";
 
-// Get trusted origins based on the incoming request
-function getTrustedOrigins(request?: Request): string[] {
+// Build trusted origins list
+function getTrustedOrigins(): string[] {
   const origins: string[] = [];
 
   // Always trust the configured site URL
@@ -29,22 +29,11 @@ function getTrustedOrigins(request?: Request): string[] {
     origins.push(...explicit);
   }
 
-  // Dynamically trust the request origin if it matches allowed patterns
-  const requestOrigin = request?.headers.get("origin");
-  if (requestOrigin) {
-    // Localhost (any port)
-    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(requestOrigin)) {
-      origins.push(requestOrigin);
-    }
-    // WebContainers (dev environments)
-    else if (requestOrigin.endsWith(".local-corp.webcontainer-api.io")) {
-      origins.push(requestOrigin);
-    }
-    // Vercel deployments (previews + production)
-    else if (requestOrigin.endsWith(".vercel.app")) {
-      origins.push(requestOrigin);
-    }
-  }
+  // Always trust localhost for development
+  origins.push("http://localhost:5173");
+  origins.push("http://localhost:5174");
+  origins.push("http://127.0.0.1:5173");
+  origins.push("http://127.0.0.1:5174");
 
   return origins;
 }
@@ -54,7 +43,7 @@ export function createAuth(ctx: GenericCtx<GenericDataModel>) {
     baseURL: process.env.CONVEX_SITE_URL,
     secret: process.env.BETTER_AUTH_SECRET,
     database: convexAdapter(ctx, components.betterAuth),
-    trustedOrigins: getTrustedOrigins,
+    trustedOrigins: getTrustedOrigins(),
     session: {
       cookieCache: {
         enabled: false,
