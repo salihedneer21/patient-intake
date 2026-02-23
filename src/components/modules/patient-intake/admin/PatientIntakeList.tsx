@@ -43,7 +43,7 @@ export function PatientIntakeList() {
           </tr>
         </thead>
         <tbody>
-          {intakes.map((intake) => (
+          {intakes.map((intake: { _id: string; firstName: string; lastName: string; email: string; phone: string; intakeCompleted: boolean; intakeStep: number; createdAt: number }) => (
             <tr key={intake._id} className="border-b hover:bg-muted/50">
               <td className="py-3 px-4">
                 {intake.firstName && intake.lastName

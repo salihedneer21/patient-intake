@@ -18,9 +18,10 @@ export default function AdminDashboard() {
 
   const intakeStats = useQuery(api.modules.patientIntake.admin.getIntakeStats);
 
-  const adminCount = allUsers?.filter((u) => u.role === "admin").length || 0;
-  const patientCount = allUsers?.filter((u) => u.role === "patient").length || 0;
-  const activeCount = allUsers?.filter((u) => u.isActive).length || 0;
+  type UserType = { _id: Id<"users">; role: string; isActive: boolean; email: string; name?: string; createdAt: number };
+  const adminCount = allUsers?.filter((u: UserType) => u.role === "admin").length || 0;
+  const patientCount = allUsers?.filter((u: UserType) => u.role === "patient").length || 0;
+  const activeCount = allUsers?.filter((u: UserType) => u.isActive).length || 0;
 
   const handleToggleRole = async (userId: Id<"users">, currentRole: string) => {
     setLoadingUserId(userId);
@@ -204,7 +205,7 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {allUsers?.map((u) => (
+                {allUsers?.map((u: UserType) => (
                   <tr key={u._id} className="hover:bg-muted/30 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">

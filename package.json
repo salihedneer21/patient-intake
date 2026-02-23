@@ -8,7 +8,7 @@
     "dev": "pnpm dev:convex",
     "dev:vite": "vite",
     "dev:convex": "concurrently -n convex,vite \"convex dev\" \"vite\"",
-    "build": "tsc -b && vite build",
+    "build": "convex codegen && tsc -b && vite build",
     "build:prod": "convex deploy && tsc -b && vite build",
     "lint": "tsc -b && eslint .",
     "preview": "vite preview"

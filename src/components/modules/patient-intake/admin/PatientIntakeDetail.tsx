@@ -385,7 +385,7 @@ export function PatientIntakeDetail({ intakeId }: PatientIntakeDetailProps) {
             <p className="font-medium mb-2">Medical Conditions</p>
             {intake.medicalConditions && intake.medicalConditions.length > 0 ? (
               <ul className="list-disc list-inside space-y-1">
-                {intake.medicalConditions.map((condition, i) => (
+                {intake.medicalConditions.map((condition: { conditionName: string; severity?: string; currentStatus?: string }, i: number) => (
                   <li key={i}>
                     {condition.conditionName}
                     {condition.severity && ` (${condition.severity})`}
@@ -402,7 +402,7 @@ export function PatientIntakeDetail({ intakeId }: PatientIntakeDetailProps) {
             <p className="font-medium mb-2">Medications</p>
             {intake.medications && intake.medications.length > 0 ? (
               <ul className="list-disc list-inside space-y-1">
-                {intake.medications.map((medication, i) => (
+                {intake.medications.map((medication: { medicationName: string; dosage?: string; frequency?: string }, i: number) => (
                   <li key={i}>
                     {medication.medicationName}
                     {medication.dosage && ` - ${medication.dosage}`}
@@ -419,7 +419,7 @@ export function PatientIntakeDetail({ intakeId }: PatientIntakeDetailProps) {
             <p className="font-medium mb-2">Allergies</p>
             {intake.allergies && intake.allergies.length > 0 ? (
               <ul className="list-disc list-inside space-y-1">
-                {intake.allergies.map((allergy, i) => (
+                {intake.allergies.map((allergy: { allergen: string; severityLevel?: string; reactionDescription?: string }, i: number) => (
                   <li key={i}>
                     {allergy.allergen}
                     {allergy.severityLevel && ` (${allergy.severityLevel})`}
