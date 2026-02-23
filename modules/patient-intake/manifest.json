@@ -1,0 +1,40 @@
+{
+  "name": "patient-intake",
+  "displayName": "Patient Intake",
+  "version": "1.0.0",
+  "description": "Multi-step patient intake funnel for telehealth applications. Collects demographics, address, insurance, medical history, and consent forms.",
+  "tables": [
+    "patientIntake",
+    "insuranceProviders",
+    "medicalConditions"
+  ],
+  "routes": {
+    "patient": [
+      "/intake",
+      "/intake/step/:step"
+    ],
+    "admin": [
+      "/admin/patients",
+      "/admin/patients/:id"
+    ]
+  },
+  "dependencies": {
+    "ui": [
+      "button",
+      "input",
+      "label",
+      "checkbox",
+      "select",
+      "card"
+    ]
+  },
+  "features": [
+    "6-step intake funnel",
+    "Progress tracking",
+    "File upload for insurance cards",
+    "Medical history management",
+    "Consent form acceptance",
+    "Admin patient list view",
+    "Admin patient detail view"
+  ]
+}
